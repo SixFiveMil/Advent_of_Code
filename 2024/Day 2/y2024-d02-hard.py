@@ -8,22 +8,29 @@ def largest_adjacent_distance(nums):
             max_distance = distance
     return max_distance
 
-def safe(f):
-    ld = 0
-    # Check if the list is sorted (ascending or descending)
-    if f == sorted(f) or f == sorted(f, reverse=True):
-        # Check for adjacent equality
+def is_safe_list(f):
+    ld = largest_adjacent_distance(f)
+    if (f == sorted(f) or f == sorted(f, reverse=True)) and ld <= 3:
         for i in range(len(f) - 1):
             if f[i] == f[i + 1]:
-                return (0, "is unsafe due to adjacent equal elements", ld)
-        
+                return False  # Unsafe due to adjacent equal elements
+        return True
+    return False
+
+def safe(f):
+    if is_safe_list(f):
         ld = largest_adjacent_distance(f)
-        if ld <= 3:
-            return (1, "is Safe distance", ld)
-        else:
-            return (0, "is unsafe distance", ld)
-    else:
-        return (0, "is unsafe order", ld)
+        return (1, "is Safe distance", ld)
+    
+    # Test by removing one element at a time
+    for i in range(len(f)):
+        modified_list = f[:i] + f[i+1:]
+        if is_safe_list(modified_list):
+            ld = largest_adjacent_distance(modified_list)
+            return (1, "is Safe distance after removing element", ld)
+    
+    ld = largest_adjacent_distance(f)
+    return (0, "is unsafe", ld)
 
 def main():
     with open('2024\Day 2\\input.txt', 'r') as f:
