@@ -4,11 +4,12 @@
 surfaceArea = 0
 with open('2015\Day 2\input.txt', 'r') as f:
     boxs = f.readlines()
+    q = 0
     for box in boxs:
         print(box)
-        l,w,h = box.split('x')
-        surfaceArea += 2*int(l)*int(w) + 2*int(w)*int(h) + 2*int(h)*int(l)
-        #find the smallest side of the box then add it to the total area.
-        surfaceArea += min( (int(l)*int(w)), ((int(w)*int(h))), ((int(h)*int(l))))
-        print("Surface Area:", surfaceArea)
+        a = [int(x) for x in box.strip().split('x')]
+        for r in sorted(a)[:2]:
+            q += r*2
+        q += a[0] + a[1] + a[2]
+    print("Surface Area:", q)
 
