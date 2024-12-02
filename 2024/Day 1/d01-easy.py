@@ -1,4 +1,4 @@
-with open('2024\Day 1\input.txt', 'r') as f:
+with open('input.txt', 'r') as f:
     lines = f.readlines()
     l,r=[], []
     for line in lines:

@@ -47,7 +47,16 @@ std::tuple<int, std::string, int> safe(const std::vector<int>& f) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    bool verbose = false;
+    // Check for the verbose flag in command-line arguments
+    for (int i = 1; i < argc; ++i) {
+        if (std::string(argv[i]) == "--verbose") {
+            verbose = true;
+            break;
+        }
+    }
+
     std::ifstream infile("input.txt");
     if (!infile) {
         std::cerr << "Error opening file" << std::endl;
@@ -72,12 +81,13 @@ int main() {
         int ld = std::get<2>(result);
 
         s += sr;
-
-        std::cout << "sum: " << s << ", ";
-        for (const int& floor : floors) {
-            std::cout << floor << " ";
+        if (verbose){
+            std::cout << "sum: " << s << ", ";
+            for (const int& floor : floors) {
+                std::cout << floor << " ";
+            }
+            std::cout << msg.c_str() << ", " << ld << std::endl; // Use c_str() to disambiguate
         }
-        std::cout << msg.c_str() << ", " << ld << std::endl; // Use c_str() to disambiguate
     }
 
     std::cout << "Final sum: " << s << std::endl;
