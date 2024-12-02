@@ -1,18 +1,41 @@
-with open('2024\Day 1\input.txt', 'r') as f:
-    lines = f.readlines()
-    l,r=[], []
-    #each line is a serries of 2 numbers serpated by white spaces
-    #example 50472   55227
-    # seperate each set into 2 lists, sort those lists so the smallest number of each list is at the top
-    for line in lines:
-        nums = line.strip().split()
-        if len(nums) == 2:  # Ensure there are exactly two numbers
-            l.append(int(nums[0]))
-            r.append(int(nums[1]))
+def largest_adjacent_distance(nums):
+    if len(nums) < 2:
+        return 0  # No adjacent elements to compare
+    max_distance = 0
+    for i in range(len(nums) - 1):
+        distance = abs(nums[i] - nums[i + 1])
+        if distance > max_distance:
+            max_distance = distance
+    return max_distance
 
-s=0
+def safe(f):
+    ld = 0
+    # Check if the list is sorted (ascending or descending)
+    if f == sorted(f) or f == sorted(f, reverse=True):
+        # Check for adjacent equality
+        for i in range(len(f) - 1):
+            if f[i] == f[i + 1]:
+                return (0, "is unsafe due to adjacent equal elements", ld)
+        
+        ld = largest_adjacent_distance(f)
+        if ld <= 3:
+            return (1, "is Safe distance", ld)
+        else:
+            return (0, "is unsafe distance", ld)
+    else:
+        return (0, "is unsafe order", ld)
 
-#This time, you'll need to figure out exactly how often each number from the left list appears in the right list. Calculate a total similarity score by adding up each number in the left list after multiplying it by the number of times that number appears in the right list.
-for i in l:
-    s+= i * r.count(i)
-print(s)
+def main():
+    with open('2024\Day 2\\input.txt', 'r') as f:
+        lines = f.readlines()
+        s = 0
+        for line in lines:
+            floors = [int(x) for x in line.strip().split()]
+            sr, msg, ld = safe(floors)
+            s += sr
+            print("sum:", s, floors, msg, ld)
+
+    print(s)
+
+if __name__ == "__main__":
+    main()
