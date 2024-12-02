@@ -26,7 +26,7 @@ def safe(f):
         return (0, "is unsafe order", ld)
 
 def main():
-    with open('2024\Day 2\\input.txt', 'r') as f:
+    with open('input.txt', 'r') as f:
         lines = f.readlines()
         s = 0
         for line in lines:
