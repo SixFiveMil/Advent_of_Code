@@ -1,56 +1,21 @@
-def count_xshape_mas(grid):
-    rows, cols = len(grid), len(grid[0])
+import numpy as np
 
-    def is_valid(x, y):
-        """Check if coordinates are within grid bounds."""
-        return 0 <= x < rows and 0 <= y < cols
-
-    def check_xshape(x, y):
-        """Check if the X-shape pattern exists with A in the center."""
-        if not is_valid(x, y) or grid[x][y] != 'A':  # Center must be 'A'
-            return 0
-
-        count = 0
-
-        # Define the two possible X-shapes
-        patterns = [
-            ((x - 1, y - 1), (x + 1, y + 1)),  # Top-left to bottom-right
-            ((x - 1, y + 1), (x + 1, y - 1))   # Top-right to bottom-left
-        ]
-
-        for m_pos, s_pos in patterns:
-            # Check "MAS"
-            if (is_valid(*m_pos) and grid[m_pos[0]][m_pos[1]] == 'M' and
-                is_valid(*s_pos) and grid[s_pos[0]][s_pos[1]] == 'S'):
-                count += 1
-
-            # Check "SAM"
-            if (is_valid(*m_pos) and grid[m_pos[0]][m_pos[1]] == 'S' and
-                is_valid(*s_pos) and grid[s_pos[0]][s_pos[1]] == 'M'):
-                count += 1
-
-        return count
-
-    # Count occurrences of the X-shape pattern
-    total_count = 0
-    for i in range(rows):
-        for j in range(cols):
-            total_count += check_xshape(i, j)
-    
-    return total_count
+# read text file into 2 dimensional char array
+with open(r'2024\Day 4\input.txt.', 'r') as file:
+    lines = file.readlines()
+    array = np.array([list(line.rstrip()) for line in lines])
 
 
-def main():
-    # Open the file in read mode
-    with open(r'2024\Day 4\test.txt.', 'r') as file:
-        # Read all lines from the file
-        lines = file.readlines()
+def check_subarray(subarray):
+    check = ["MAS", "SAM"]
+    s1 = "".join(subarray.ravel()[[0, 4, 8]])
+    s2 = "".join(subarray.ravel()[[2, 4, 6]])
+    return (s1 in check) and (s2 in check)
 
-    # Convert each line into a list of characters
-    list_of_lists = [list(line.strip()) for line in lines]
+x_mas_count = 0
+for i in range(1, array.shape[0]-1):
+    for j in range(1, array.shape[0]-1):
+        subarray = array[i-1:i+2, j-1:j+2]
+        x_mas_count += check_subarray(subarray)
 
-    return count_xshape_mas(list_of_lists)
-
-
-if __name__ == "__main__":
-   print(main())
+print(f"Total X-MAS count: {x_mas_count}")
