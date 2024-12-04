@@ -46,4 +46,47 @@ S.S.S.S.SS
 
 Take a look at the little Elf's word search. _How many times does `XMAS` appear?_
 
-To begin, [get your puzzle input](https://adventofcode.com/2024/day/44/input).
+Your puzzle answer was `XXXX`.
+
+## \--- Part Two ---
+
+The Elf looks quizzically at you. Did you misunderstand the assignment?
+
+Looking for the instructions, you flip over the word search to find that this isn't actually an `_XMAS_` puzzle; it's an `_X-MAS_` puzzle in which you're supposed to find two `MAS` in the shape of an `X`. One way to achieve that is like this:
+
+```
+M.S
+.A.
+M.S
+```
+
+Irrelevant characters have again been replaced with `.` in the above diagram. Within the `X`, each `MAS` can be written forwards or backwards.
+
+Here's the same example from before, but this time all of the `X-MAS`es have been kept instead:
+
+```
+.M.S......
+..A..MSMS.
+.M.S.MAA..
+..A.ASMSM.
+.M.S.M....
+..........
+S.S.S.S.S.
+.A.A.A.A..
+M.M.M.M.M.
+..........
+```
+
+In this example, an `X-MAS` appears `_9_` times.
+
+Flip the word search from the instructions back over to the word search side and try again. _How many times does an `X-MAS` appear?_
+
+Your puzzle answer was `XXX`.
+
+Both parts of this puzzle are complete! They provide two gold stars: \*\*
+
+At this point, you should [return to your Advent calendar](https://adventofcode.com/2024) and try another puzzle.
+
+If you still want to see it, you can [get your puzzle input](https://adventofcode.com/2024/day/4/input).
+
+You can also this puzzle.
