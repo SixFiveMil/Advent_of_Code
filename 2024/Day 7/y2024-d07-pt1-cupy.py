@@ -28,28 +28,25 @@ def calculate_antinode_positions(antennas, rows, cols):
 
         # Compare all pairs of antennas with the same frequency
         for i in range(n):
-            for j in range(i + 1, n):  # Ensure no duplicate comparisons
+            for j in range(n):
+                if i == j:
+                    continue  # Skip the same antenna
+
                 x1, y1 = positions[i]
                 x2, y2 = positions[j]
 
-                # Calculate midpoint
-                mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2
+                # Calculate vector difference
+                dx, dy = x2 - x1, y2 - y1
 
-                # Check if the midpoint is an integer
-                if mid_x.is_integer() and mid_y.is_integer():
-                    # Convert midpoint to integer tuple
-                    mid_x, mid_y = int(mid_x), int(mid_y)
+                # Antinode positions based on "twice as far" condition
+                antinode_1 = (x1 - dx, y1 - dy)
+                antinode_2 = (x2 + dx, y2 + dy)
 
-                    # Calculate potential antinode positions
-                    dx, dy = x2 - x1, y2 - y1
-                    antinode_1 = (x1 - dx, y1 - dy)
-                    antinode_2 = (x2 + dx, y2 + dy)
-
-                    # Add antinodes if within bounds
-                    if 0 <= antinode_1[0] < cols and 0 <= antinode_1[1] < rows:
-                        antinodes.add(antinode_1)
-                    if 0 <= antinode_2[0] < cols and 0 <= antinode_2[1] < rows:
-                        antinodes.add(antinode_2)
+                # Add antinodes if within bounds
+                if 0 <= antinode_1[0] < cols and 0 <= antinode_1[1] < rows:
+                    antinodes.add(antinode_1)
+                if 0 <= antinode_2[0] < cols and 0 <= antinode_2[1] < rows:
+                    antinodes.add(antinode_2)
 
     return antinodes
 
