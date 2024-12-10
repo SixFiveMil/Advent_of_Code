@@ -65,7 +65,7 @@ def guard_patrol(input_map):
 
 # Read input from file
 def main():
-    input_file = r'2024\Day 6\input.txt'  # Replace with your input file name
+    input_file = r'2024\Day 6\test.txt'  # Replace with your input file name
     with open(input_file, "r") as file:
         input_map = file.read()
     
