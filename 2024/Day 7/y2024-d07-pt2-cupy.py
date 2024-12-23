@@ -26,7 +26,7 @@ def math_test(test_value, tests):
     for operators in operator_combinations:
         # Evaluate the numbers and operators strictly left-to-right
         result = evaluate_left_to_right(tests, operators)
-        print(f"Evaluating {tests} with {operators} = {result}")
+        #print(f"Evaluating {tests} with {operators} = {result}")
         if result == test_value:
             return True
 

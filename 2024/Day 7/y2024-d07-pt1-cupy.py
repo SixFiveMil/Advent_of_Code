@@ -70,23 +70,13 @@ def solve(lines):
     return len(unique_positions)
 
 def main():
-    input_data = [
-        "............",
-        "........0...",
-        ".....0......",
-        ".......0....",
-        "....0.......",
-        "......A.....",
-        "............",
-        "............",
-        "........A...",
-        ".........A..",
-        "............",
-        "............"
-    ]
+    total = 0
+    input_file = r'2024\Day 7\input.txt.'
 
-    # Solve the puzzle
-    total = solve(input_data)
+    # Read all lines from the file
+    with open(input_file, 'r') as file:
+        lines = file.readlines()
+        
     
     # Print the result
     print(f"Total unique antinode locations: {total}")
